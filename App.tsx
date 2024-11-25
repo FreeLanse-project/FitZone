@@ -6,6 +6,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { RootStackParamList } from "./types/navigationTypes";
 import { createStackNavigator } from "@react-navigation/stack";
 import { SignIn } from "./app/screen/sign-in";
+import Toast from "react-native-toast-message";
 
 const Stack = createStackNavigator<RootStackParamList>();
 
@@ -20,6 +21,7 @@ export default function App() {
         <Stack.Screen name="SignUp" component={SignUp} />
         <Stack.Screen name="SignIn" component={SignIn} />
       </Stack.Navigator>
+      <Toast />
     </NavigationContainer>
   );
 }
