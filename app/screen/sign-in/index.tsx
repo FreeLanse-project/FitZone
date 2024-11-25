@@ -1,24 +1,24 @@
 import React, { useState } from "react";
+import { View, Text, Image } from "react-native";
 import CustomButton from "../../components/button";
 import CustomTextInput from "../../components/textInput";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { View, Text, Image } from "react-native";
-import Toast from "react-native-toast-message"; // Import toast
-import { signUpWithEmailPassword } from "../../../auth/auth-service";
+import Toast from "react-native-toast-message";
+import { loginWithEmailPassword } from "../../../auth/auth-service";
+import { useNavigation } from "@react-navigation/native";
+import { RootStackParamList } from "../../../types/navigationTypes";
 
-// todo: update the error messages later
-export function SignUp() {
-  const [name, setName] = useState<string>("");
+export function SignIn() {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const [isSignUp, setIsSignUp] = useState<boolean>(true);
-  const [isLoading, setIsLoading] = useState<boolean>(false); // To handle loading state
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const handleSignUp = async () => {
-    if (!name || !email || !password) {
+  const handleSignIn = async () => {
+    const navigation = useNavigation<RootStackParamList>();
+    if (!email || !password) {
       Toast.show({
         type: "error",
-        position: "top",
+        position: "bottom",
         text1: "Error",
         text2: "Please fill in all fields.",
         visibilityTime: 3000,
@@ -28,26 +28,23 @@ export function SignUp() {
 
     setIsLoading(true);
     try {
-      const userCredential = await signUpWithEmailPassword({
-        email,
-        password,
-        name,
-      });
-      console.log("User signed up:", userCredential);
+      const userCredential = await loginWithEmailPassword({ email, password });
+      console.log("User signed in:", userCredential);
 
       Toast.show({
         type: "success",
-        position: "top",
+        position: "bottom",
         text1: "Success",
-        text2: "Account created successfully!",
+        text2: "Welcome back!",
         visibilityTime: 3000,
       });
+      navigation.navigate("Welcome");
     } catch (error: any) {
-      console.error("Sign up error:", error);
+      console.error("Sign in error:", error);
 
       Toast.show({
         type: "error",
-        position: "top",
+        position: "bottom",
         text1: "Error",
         text2: error.message || "Something went wrong.",
         visibilityTime: 3000,
@@ -68,21 +65,15 @@ export function SignUp() {
           />
         </View>
 
-        <Text className="text-gray-400 text-3xl font-bold">FitZone</Text>
+        <Text className="text-gray-400 text-3xl font-bold ">FitZone</Text>
 
         <View className="gap-4 w-[100%]">
-          <CustomTextInput
-            text="Name"
-            placeholder="Enter Name"
-            value={name}
-            onChange={setName}
-          />
-
           <CustomTextInput
             text="Email"
             placeholder="Enter Email"
             value={email}
             onChange={setEmail}
+            className="h-14"
           />
 
           <CustomTextInput
@@ -90,16 +81,20 @@ export function SignUp() {
             placeholder="Enter Password"
             value={password}
             onChange={setPassword}
+            className="h-14"
             secureTextEntry={true}
           />
+          <Text className="text-gray-400 text-right">
+            Forget your password?
+          </Text>
         </View>
 
         <View className="flex-row">
           <CustomButton
             className="bg-primary"
             classNameText="text-white"
-            text={isLoading ? "Signing Up..." : "Sign Up"}
-            onPress={handleSignUp}
+            text={isLoading ? "Signing In..." : "Sign In"}
+            onPress={handleSignIn}
             disabled={isLoading}
           />
         </View>

@@ -1,47 +1,49 @@
 import React from "react";
-import { View, Text, TouchableOpacity, ImageBackground } from "react-native";
+import { View, Text, Image } from "react-native";
+import CustomButton from "../../components/button";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { useNavigation } from "@react-navigation/native";
+import { RootStackParamList } from "../../../types/navigationTypes";
 
-export function WelcomePage({ navigation }: { navigation: any }) {
+export function WelcomePage() {
+  const navigation = useNavigation<RootStackParamList>();
   return (
-    <View className="flex-1 bg-black justify-center items-center">
-      <View className="w-80">
-        <View className="rounded-full overflow-hidden mb-6">
-          <ImageBackground
-            source={{
-              uri: "https://images.pexels.com/photos/2827392/pexels-photo-2827392.jpeg?auto=compress&cs=tinysrgb&w=600",
-            }}
-            className="h-40 w-40"
+    <SafeAreaView className="flex-1 bg-black items-center">
+      <View className="flex-1 flex-col justify-evenly px-8">
+        <View className="rounded-full items-center overflow-hidden">
+          <Image
+            source={require("../../../assets/WelcomeImg.png")}
+            className="w-64 h-64"
+            resizeMode="contain"
           />
         </View>
 
-        <Text className="text-white text-2xl font-bold text-center mb-4">
-          Welcome to FitZone &{"\n"}start your fitness
-        </Text>
-        <Text className="text-gray-400 text-center text-sm mb-6">
-          Track workouts, set goals, discover exercises & reach new heights.
-        </Text>
-
-        <View className="flex-row justify-between">
-          <TouchableOpacity className="bg-white  rounded-full py-2 px-6">
-            <Text className="text-black text-center  font-semibold">
-              Sign in
-            </Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity
-            className="bg-blue-500 rounded-full py-3 px-6"
-            onPress={() => navigation.navigate("SignUp")}
-          >
-            <Text className="text-white text-center font-semibold">
-              Join now
-            </Text>
-          </TouchableOpacity>
+        <View>
+          <Text className="text-gray-400 text-3xl font-bold text-center">
+            Welcome to FitZone &{"\n"}start your fitness
+          </Text>
+          <Text className="text-gray-400 text-center text-sm">
+            Track workouts, set goals, discover exercises & reach new heights.
+          </Text>
         </View>
+        <View>
+          <View className="flex-row gap-4 justify-between pb-4">
+            <CustomButton
+              text="Sign In"
+              onPress={() => navigation.navigate("SignIn")}
+              className="bg-white"
+            />
+            <CustomButton
+              text="Join Now"
+              className="bg-primary"
+              classNameText="text-white"
+              onPress={() => navigation.navigate("SignUp")}
+            />
+          </View>
 
-        <Text className="text-gray-400 text-center mt-4">
-          Explore as a guest
-        </Text>
+          {/* <Text className="text-gray-400 text-center">Explore as a guest</Text> */}
+        </View>
       </View>
-    </View>
+    </SafeAreaView>
   );
 }
