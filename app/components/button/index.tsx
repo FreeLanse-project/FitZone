@@ -6,18 +6,21 @@ type ButtonInputType = {
   classNameText?: string;
   text: string;
   onPress?: () => void;
+  disabled?: boolean;
 };
 const CustomButton: React.FC<ButtonInputType> = ({
   className,
   classNameText,
   text,
   onPress,
+  disabled,
 }) => {
   return (
     <>
       <TouchableOpacity
         className={` rounded-full flex-1 py-4 ${className}`}
         onPress={onPress}
+        disabled={disabled}
       >
         <Text className={`text-center  font-semibold ${classNameText}`}>
           {text}

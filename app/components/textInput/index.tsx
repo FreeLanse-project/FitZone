@@ -7,6 +7,7 @@ type TextInputFieldType = {
   placeholder?: string;
   value?: string;
   onChange?: (text: string) => void;
+  secureTextEntry?: boolean;
 };
 
 const CustomTextInput: React.FC<TextInputFieldType> = ({
@@ -15,6 +16,7 @@ const CustomTextInput: React.FC<TextInputFieldType> = ({
   value,
   onChange,
   className,
+  secureTextEntry,
 }) => {
   return (
     <View className="gap-1">
@@ -25,6 +27,7 @@ const CustomTextInput: React.FC<TextInputFieldType> = ({
         placeholderTextColor="#A3A3A3"
         value={value}
         onChangeText={onChange}
+        secureTextEntry={secureTextEntry}
       />
     </View>
   );
