@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import { View, Text, TextInput, TouchableOpacity, Image } from "react-native";
+import CustomButton from "../../components/button";
+import CustomTextInput from "../../components/textInput";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export function SignUp() {
   const [name, setName] = useState("");
@@ -7,50 +10,50 @@ export function SignUp() {
   const [password, setPassword] = useState("");
 
   return (
-    <View className="flex-1 bg-black justify-center items-center">
-      {/* Image */}
-      <Image
-        source={{
-          uri: "https://images.pexels.com/photos/175708/pexels-photo-175708.jpeg?auto=compress&cs=tinysrgb&w=600",
-        }}
-        className="h-36 w-36 mb-6"
-        resizeMode="contain"
-      />
+    <SafeAreaView className="flex-1 bg-black items-center">
+      <View className="flex-1 flex-col justify-evenly items-center px-8">
+        <View>
+          <Image
+            source={{
+              uri: "https://images.pexels.com/photos/175708/pexels-photo-175708.jpeg?auto=compress&cs=tinysrgb&w=600",
+            }}
+            className="h-36 w-36"
+            resizeMode="contain"
+          />
+        </View>
 
-      <Text className="text-white text-3xl font-bold mb-8">FitZone</Text>
+        <Text className="text-gray-400 text-3xl font-bold ">FitZone</Text>
 
-      <View className="w-80 space-y-4">
-        <TextInput
-          className="bg-gray-800 text-white py-3 px-4 rounded-lg mb-6"
-          placeholder="Enter Name"
-          placeholderTextColor="#A3A3A3"
-          value={name}
-          onChangeText={setName}
-        />
+        <View className="gap-4">
+          <CustomTextInput
+            text="Name"
+            placeholder="Enter Name"
+            value={name}
+            onChange={setName}
+          />
 
-        <TextInput
-          className="bg-gray-800 text-white py-3 px-4 rounded-lg mb-6"
-          placeholder="Enter Email"
-          placeholderTextColor="#A3A3A3"
-          value={email}
-          onChangeText={setEmail}
-        />
+          <CustomTextInput
+            text="Email"
+            placeholder="Enter Email"
+            value={email}
+            onChange={setEmail}
+          />
 
-        <TextInput
-          className="bg-gray-800 text-white py-3 px-4 rounded-lg mb-6"
-          placeholder="Enter Password"
-          placeholderTextColor="#A3A3A3"
-          secureTextEntry
-          value={password}
-          onChangeText={setPassword}
-        />
+          <CustomTextInput
+            text="Password"
+            placeholder="Enter Password"
+            value={password}
+            onChange={setPassword}
+          />
+        </View>
+        <View className="flex-row">
+          <CustomButton
+            className="bg-primary"
+            classNameText="text-white"
+            text="Sign in"
+          />
+        </View>
       </View>
-
-      <TouchableOpacity className="bg-blue-500 w-80 py-3 rounded-lg mt-6">
-        <Text className="text-white text-center font-semibold text-lg">
-          Sign In
-        </Text>
-      </TouchableOpacity>
-    </View>
+    </SafeAreaView>
   );
 }
