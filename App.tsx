@@ -3,10 +3,11 @@ import "./global.css";
 import { WelcomePage } from "./app/screen/welcome";
 import { SignUp } from "./app/screen/sign-up";
 import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { RootStackParamList } from "./types/navigationTypes"; // Import the type
+import { RootStackParamList } from "./types/navigationTypes";
+import { createStackNavigator } from "@react-navigation/stack";
+import { SignIn } from "./app/screen/sign-in";
 
-const Stack = createNativeStackNavigator<RootStackParamList>(); // Apply the type here
+const Stack = createStackNavigator<RootStackParamList>();
 
 export default function App() {
   return (
@@ -17,6 +18,7 @@ export default function App() {
       >
         <Stack.Screen name="WelcomePage" component={WelcomePage} />
         <Stack.Screen name="SignUp" component={SignUp} />
+        <Stack.Screen name="SignIn" component={SignIn} />
       </Stack.Navigator>
     </NavigationContainer>
   );
