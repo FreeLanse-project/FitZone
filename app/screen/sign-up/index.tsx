@@ -1,32 +1,58 @@
 import React, { useState } from "react";
-import { View, Text, TextInput, TouchableOpacity, Image } from "react-native";
+import { View, Text, TextInput, TouchableOpacity, Alert } from "react-native";
+import {
+  signUpWithEmailPassword,
+  loginWithEmailPassword,
+} from "../../../auth/auth-service";
+import { SignUpData, LoginData } from "../../../types/user-types";
 
+// todo : update the error messages later
 export function SignUp() {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [name, setName] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [isSignUp, setIsSignUp] = useState<boolean>(true);
+
+  const handleSubmit = async () => {
+    if (!email || !password || (isSignUp && !name)) {
+      Alert.alert("Error", "Please fill in all fields");
+      return;
+    }
+
+    try {
+      const userData: SignUpData | LoginData = {
+        email,
+        password,
+        ...(isSignUp && { name }),
+      };
+
+      if (isSignUp) {
+        await signUpWithEmailPassword(userData as SignUpData);
+        Alert.alert("Success", `Welcome, ${name}!`);
+      } else {
+        await loginWithEmailPassword(userData as LoginData);
+        Alert.alert("Success", `Welcome back!`);
+      }
+    } catch (error: any) {
+      console.error("Error:", error.message);
+      Alert.alert("Error", error.message);
+    }
+  };
 
   return (
     <View className="flex-1 bg-black justify-center items-center">
-      {/* Image */}
-      <Image
-        source={{
-          uri: "https://images.pexels.com/photos/175708/pexels-photo-175708.jpeg?auto=compress&cs=tinysrgb&w=600",
-        }}
-        className="h-36 w-36 mb-6"
-        resizeMode="contain"
-      />
-
       <Text className="text-white text-3xl font-bold mb-8">FitZone</Text>
 
       <View className="w-80 space-y-4">
-        <TextInput
-          className="bg-gray-800 text-white py-3 px-4 rounded-lg mb-6"
-          placeholder="Enter Name"
-          placeholderTextColor="#A3A3A3"
-          value={name}
-          onChangeText={setName}
-        />
+        {isSignUp && (
+          <TextInput
+            className="bg-gray-800 text-white py-3 px-4 rounded-lg mb-6"
+            placeholder="Enter Name"
+            placeholderTextColor="#A3A3A3"
+            value={name}
+            onChangeText={setName}
+          />
+        )}
 
         <TextInput
           className="bg-gray-800 text-white py-3 px-4 rounded-lg mb-6"
@@ -46,9 +72,20 @@ export function SignUp() {
         />
       </View>
 
-      <TouchableOpacity className="bg-blue-500 w-80 py-3 rounded-lg mt-6">
+      <TouchableOpacity
+        className="bg-blue-500 w-80 py-3 rounded-lg mt-6"
+        onPress={handleSubmit}
+      >
         <Text className="text-white text-center font-semibold text-lg">
-          Sign In
+          {isSignUp ? "Sign Up" : "Log In"}
+        </Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity className="mt-4" onPress={() => setIsSignUp(!isSignUp)}>
+        <Text className="text-white text-center">
+          {isSignUp
+            ? "Already have an account? Log In"
+            : "Don't have an account? Sign Up"}
         </Text>
       </TouchableOpacity>
     </View>
