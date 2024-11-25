@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, TouchableOpacity, ImageBackground } from "react-native";
+import { View, Text, Image } from "react-native";
 import CustomButton from "../../components/button";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useNavigation } from "@react-navigation/native";
@@ -10,12 +10,11 @@ export function WelcomePage() {
   return (
     <SafeAreaView className="flex-1 bg-black items-center">
       <View className="flex-1 flex-col justify-evenly px-8">
-        <View className="rounded-full overflow-hidden">
-          <ImageBackground
-            source={{
-              uri: "https://images.pexels.com/photos/2827392/pexels-photo-2827392.jpeg?auto=compress&cs=tinysrgb&w=600",
-            }}
-            className="h-40 w-40"
+        <View className="rounded-full items-center overflow-hidden">
+          <Image
+            source={require("../../../assets/WelcomeImg.png")}
+            className="w-64 h-64"
+            resizeMode="contain"
           />
         </View>
 
@@ -42,7 +41,7 @@ export function WelcomePage() {
             />
           </View>
 
-          <Text className="text-gray-400 text-center">Explore as a guest</Text>
+          {/* <Text className="text-gray-400 text-center">Explore as a guest</Text> */}
         </View>
       </View>
     </SafeAreaView>
