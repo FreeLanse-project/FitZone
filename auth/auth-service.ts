@@ -1,6 +1,7 @@
 import { auth } from "../firebase/firebase-config";
 import {
   createUserWithEmailAndPassword,
+  sendPasswordResetEmail,
   signInWithEmailAndPassword,
   UserCredential,
 } from "firebase/auth";
@@ -64,6 +65,17 @@ export const loginWithEmailPassword = async ({
 
     return userCredential;
   } catch (error: any) {
+    throw error;
+  }
+};
+
+export const forgotPassword = async (email: string): Promise<void> => {
+  try {
+    await sendPasswordResetEmail(auth, email);
+    console.log("Password reset email sent!");
+    // Optionally, you can return a success message or trigger a UI update
+  } catch (error: any) {
+    console.error("Error sending password reset email:", error);
     throw error;
   }
 };
