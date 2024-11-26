@@ -73,7 +73,6 @@ export const forgotPassword = async (email: string): Promise<void> => {
   try {
     await sendPasswordResetEmail(auth, email);
     console.log("Password reset email sent!");
-    // Optionally, you can return a success message or trigger a UI update
   } catch (error: any) {
     console.error("Error sending password reset email:", error);
     throw error;

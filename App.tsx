@@ -7,6 +7,7 @@ import { RootStackParamList } from "./types/navigationTypes";
 import { createStackNavigator } from "@react-navigation/stack";
 import { SignIn } from "./app/screen/sign-in";
 import Toast from "react-native-toast-message";
+import { ForgotPassword } from "./app/screen/forget-password";
 
 const Stack = createStackNavigator<RootStackParamList>();
 
@@ -20,6 +21,7 @@ export default function App() {
         <Stack.Screen name="WelcomePage" component={WelcomePage} />
         <Stack.Screen name="SignUp" component={SignUp} />
         <Stack.Screen name="SignIn" component={SignIn} />
+        <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
       </Stack.Navigator>
       <Toast />
     </NavigationContainer>
