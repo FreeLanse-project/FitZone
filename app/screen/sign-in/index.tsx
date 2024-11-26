@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, Image } from "react-native";
+import { View, Text, Image, TouchableOpacity } from "react-native";
 import CustomButton from "../../components/button";
 import CustomTextInput from "../../components/textInput";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -12,6 +12,7 @@ export function SignIn() {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const navigation = useNavigation<RootStackParamList>();
 
   const handleSignIn = async () => {
     const navigation = useNavigation<RootStackParamList>();
@@ -84,9 +85,13 @@ export function SignIn() {
             className="h-14"
             secureTextEntry={true}
           />
-          <Text className="text-gray-400 text-right">
-            Forget your password?
-          </Text>
+          <TouchableOpacity
+            onPress={() => navigation.navigate("ForgotPassword")}
+          >
+            <Text className="text-gray-400 text-right underline">
+              Forgot your password?
+            </Text>
+          </TouchableOpacity>
         </View>
 
         <View className="flex-row">
