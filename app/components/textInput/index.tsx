@@ -22,7 +22,7 @@ const CustomTextInput: React.FC<TextInputFieldType> = ({
     <View className="gap-1">
       <Text className="text-gray-400 text-sm">{text}</Text>
       <TextInput
-        className={`bg-gray-800 text-white  px-4 rounded-3xl ${className}`}
+        className={`bg-gray-800 text-white  px-4 rounded-3xl h-14 ${className}`}
         placeholder={`${placeholder}`}
         placeholderTextColor="#A3A3A3"
         value={value}

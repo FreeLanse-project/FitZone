@@ -74,7 +74,6 @@ export function SignIn() {
             placeholder="Enter Email"
             value={email}
             onChange={setEmail}
-            className="h-14"
           />
 
           <CustomTextInput
@@ -82,7 +81,6 @@ export function SignIn() {
             placeholder="Enter Password"
             value={password}
             onChange={setPassword}
-            className="h-14"
             secureTextEntry={true}
           />
           <TouchableOpacity
